@@ -1,0 +1,283 @@
+#Campus Service Queue Manager
+#This code takes student tickets and records them in a queue for processing by campus service staff. 
+# It allows students to submit their service requests and provides staff with a way to manage and track these requests efficiently.
+import sys
+
+#validates inputs, creates a ticket, and returns its number. Use a default parameter for regular service
+#Within each service type, serve tickets in the order they were created. 
+#Priority tickets may go first, but after two consecutive priority tickets, 
+#serve one regular ticket if any regular ticket is waiting. Then reset the priority streak.
+
+#Next_number variable outside the issue_ticket function to define and vaildate, allowing function to update the variable.
+next_number = 1
+
+#for next_ticket to 
+waiting_tickets = []
+priority_streak = 0
+current_ticket = None
+
+#Two Counters for the report and serving tickets
+counters = {counter_number: None for counter_number in range(1, 3)}
+
+#Completed Ticket
+completed_tickets = []
+
+#Cancelled tickets
+cancelled_tickets = []
+
+
+class WaitingTicketIterator:
+    def __init__(self, tickets):
+        self.tickets = tickets
+        self.position = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        while self.position < len(self.tickets):
+            ticket = self.tickets[self.position]
+            self.position += 1
+
+            if ticket["Status"] == "Waiting":
+                return ticket
+
+        raise StopIteration
+
+def issue_ticket(purpose, service_type="regular"):
+    # Validate inputs
+    global next_number
+
+    if not purpose:
+        print("Error: Purpose cannot be empty.")
+        return None
+
+    #Ticket number becomes a unique number like "T-0001"
+    ticket_number = f"T-{next_number:04}"
+
+    waiting_tickets.append({
+        "Number": ticket_number,
+        "Purpose": purpose,
+        "Service Type": service_type,
+        "Status": "Waiting"
+    })
+
+    next_number += 1
+    return ticket_number
+
+#Accepts any number of ticket requests and returns their issued numbers. 
+#Each request supplies a purpose and service type. 
+#A single invalid request must not silently create a partial ticket.
+def issue_many(*requests):
+    issued_numbers = []
+    for request in requests:
+        ticket_number = issue_ticket(**request)
+        if ticket_number is None:
+            print("Error: Invalid ticket request.")
+            return None
+        issued_numbers.append(ticket_number)
+    return issued_numbers
+
+#determines which waiting ticket is eligible under the fairness rule.
+def next_ticket(waiting, priority_streak):
+
+    regular = next(
+        (ticket for ticket in waiting
+        if ticket["Service Type"].lower() == "regular"),
+        None
+    )
+
+    priority = next(
+        (ticket for ticket in waiting
+        if ticket["Service Type"].lower() == "priority"),
+        None
+    )
+
+    if priority_streak >= 2 and regular is not None:
+        selected = regular
+        priority_streak = 0
+
+    elif priority is not None:
+        selected = priority
+        priority_streak += 1
+
+    elif regular is not None:
+        selected = regular
+        priority_streak = 0
+
+    elif priority is None:
+        selected = regular
+
+    else:
+        return None, priority_streak
+    
+    '''
+    THIS IS TO CHECK WHETHER PRIORITY STREAK WORKS OR NOT FOR DEBUGGING
+    print("selected:", repr(selected))
+    print("waiting:", repr(waiting))
+    '''
+    
+    waiting.remove(selected)
+    return selected, priority_streak
+
+#This function cancels/pops waiting tickets before being served and appends them to the cancelled_tickets dictionary
+def cancel_waiting_ticket(ticket_number):
+    ticket_number = ticket_number.strip().upper()
+
+    for ticket in waiting_tickets:
+        if ticket["Number"] == ticket_number:
+            waiting_tickets.remove(ticket)
+            ticket["Status"] = "Cancelled"
+            cancelled_tickets.append(ticket)
+            return True
+
+    return False
+
+#This function completes tickets being served after being called.
+def complete_serving_tickets(ticket_number):
+    ticket_number = ticket_number.strip().upper()
+
+    for counter_number, ticket in counters.items():
+        if ticket is not None and  ticket["Number"] == ticket_number:
+            ticket["Status"] = "Completed"
+            completed_tickets.append(ticket)
+            counters[counter_number] = None
+            return True
+
+    return False
+
+#prints optional counts such as waiting, served, cancelled, and free counters.
+# Unknown metadata must not affect queue decisions.
+def report(**kwargs):
+    count_names = ("waiting","in_service" , "served", "cancelled", "free_counters")
+
+    for name in count_names:
+        if name in kwargs:
+            print(f"{name}: {kwargs[name]}")
+
+def leave_queue(menu):
+    sys.exit("\nExiting the Campus Service Queue Manager. Goodbye!\n")
+
+
+#Menu that returns after input while program is still true and not terminated
+
+while True:
+    print("\n==============================")
+    print(" CAMPUS SERVICE QUEUE MANAGER")
+    print("==============================\n")
+    print("1 Issue a ticket")
+    print("2 Call the next ticket")
+    print("3 Complete a service")
+    print("4 Cancel a waiting ticket")
+    print("5 Show waiting tickets")
+    print("6 Show counter status and completed history")
+    print("7 Show a summary report")
+    print("8 Exit\n")
+
+    menu = input("Enter your choice: ")
+
+    #1 Issue a ticket
+    if menu == "1":
+        purpose = input("\nEnter the purpose of your service request (Enrollment, Records, or Payment): ")
+        service_type = input("\nEnter the type of service (regular or priority): ") or "regular"
+        ticket_number = issue_ticket(purpose, service_type)
+        if ticket_number is not None:
+            print(f"\nTicket issued successfully! Your ticket number is: {ticket_number}")
+
+        while True:
+            more = input("\nWould you want to create another ticket? ")
+            if more.lower() not in ("yes", "y"):
+                break
+
+            purpose = input("\nEnter the purpose of your service request (Enrollment, Records, or Payment): ")
+            service_type = input("\nEnter the type of service (regular or priority): ") or "regular"
+            ticket_number = issue_ticket(purpose, service_type)
+            if ticket_number is not None:
+                print(f"\nTicket issued successfully! Your ticket number is: {ticket_number}")
+            
+
+    #2 Call the next ticket
+    elif menu == "2":
+
+        free_counter = next( (number for number, ticket in counters.items() if ticket is None), None)
+
+        if free_counter is None:
+            print("\nBoth counters are busy.")
+
+        else:
+            current_ticket, priority_streak = next_ticket(waiting_tickets, priority_streak)
+
+            if current_ticket is None:
+                print("\nThere are no tickets in the waiting list.")
+
+            else:
+                current_ticket["Status"] = "In Service"
+                counters[free_counter] = current_ticket
+
+                print(
+                    f"\nCounter {free_counter} is Serving "
+                    f"Ticket Number: {current_ticket['Number']} | | "
+                    f"{current_ticket['Purpose']} | | "
+                    f"{current_ticket['Service Type']} | | "
+                    f"Ticket Status: {current_ticket['Status']}\n"
+                )
+            
+
+    elif menu == "3":
+        number = input("\nWhich ticket to complete: ")
+        
+        print(counters)
+        if complete_serving_tickets(number):
+            print(f"Ticket {number} Completed.")
+        else:
+            print(f"\nTicket number {number} was not found in the data being served.")
+
+
+    elif menu == "4":
+        number = input("\nEnter the ticket number to cancel: ")
+        if cancel_waiting_ticket(number):
+            print(f"\nTicket {number} cancelled.")
+        else:
+            print(f"\nNo waiting ticket found with number {number}.")
+
+
+    elif menu == "5":
+        waiting_iterator = WaitingTicketIterator(waiting_tickets)
+        for position, ticket in enumerate(waiting_iterator, start=1):
+            print(f"{position}. {ticket['Number']} - {ticket['Purpose']}")
+
+
+    elif menu == "6":
+        for counter_number, ticket in counters.items():
+            if ticket is None:
+                print(f"Counter {counter_number} is free")
+            else:
+                print(
+                    f"\nCounter {counter_number} is serving ticket number {ticket['Number']}"
+                )
+
+        if completed_tickets:
+            print("Here are the list of Completed Tickets: ")
+            for ticket in completed_tickets:
+                print(completed_tickets)
+        else:
+            print("\nNo completed tickets yet.")
+                
+
+    elif menu == "7":
+
+        print("\n")
+        report(
+        waiting=len(waiting_tickets),
+        in_service=sum(ticket is not None for ticket in counters.values()),
+        served=len(completed_tickets),
+        cancelled=len(cancelled_tickets),
+        free_counters=sum(counter is None for counter in counters.values())
+    )    
+
+
+    elif menu == "8" or menu.lower() == "exit":
+        leave_queue(menu)
+
+    else:
+        print("\nInvalid choice. Please enter a number from 1 to 8.\n\n")
