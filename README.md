@@ -10,6 +10,7 @@ This is a Campus Service Queue Manager program that manages tickets issued, call
 This code is useful for real life situations such as a busy campus registrar having several service counters. Students take a numbered ticket and the staff calls the next person. This program fulfills the efficiency in queuing the ticket holder fairly and records completed service.
 
 
+-------------------------------------------
 **Contents**
 1. Import
 2. Data Structure of the counters, functions, and tickets
