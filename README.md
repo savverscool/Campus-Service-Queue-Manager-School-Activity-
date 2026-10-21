@@ -29,10 +29,30 @@ ____________________________________________
 
 ____________________________________________
 
-**DATA STRUCTURE OF THE COUNTERS, FUNCTIONS, TICKETS, ETC.**
+**2. DATA STRUCTURE OF THE COUNTERS, FUNCTIONS, TICKETS, ETC.**
 
  This section explain the data structure outside the functions which resides at the beginning after the import statement. 
 
+These consists of specific variables, default statements, range for the counter, and lists which can add ticket dictionaries when the program is executed.
+
+```
+#Next_number variable outside the issue_ticket function to define and vaildate, allowing function to update the variable.
+next_number = 1
+
+#for next_ticket to 
+waiting_tickets = []
+priority_streak = 0
+current_ticket = None
+
+#Two Counters for the report and serving tickets
+counters = {counter_number: None for counter_number in range(1, 3)}
+
+#Completed Ticket
+completed_tickets = []
+
+#Cancelled tickets
+cancelled_tickets = []
+```
 
 
 ____________________________________________
