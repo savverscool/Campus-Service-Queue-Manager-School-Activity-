@@ -24,11 +24,13 @@ ____________________________________________
 
 
 **1. IMPORT**
+
  The ```import sys``` imports the built-in sys module whereas in this program, the sys module was executed for exiting the program by entering choice "8". In the code, exiting the program was done within a function that implements this module by calling out the ```leave_queue(menu)``` function choice "8" that exits the program using ```sys.exit``` which can also be customized by printing a text before exiting.
 
 ____________________________________________
 
 **DATA STRUCTURE OF THE COUNTERS, FUNCTIONS, TICKETS, ETC.**
+
  This section explain the data structure outside the functions which resides at the beginning after the import statement. 
 
 
