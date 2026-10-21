@@ -224,9 +224,9 @@ while True:
             
 
     elif menu == "3":
+        print(counters)
         number = input("\nWhich ticket to complete: ")
         
-        print(counters)
         if complete_serving_tickets(number):
             print(f"Ticket {number} Completed.")
         else:
