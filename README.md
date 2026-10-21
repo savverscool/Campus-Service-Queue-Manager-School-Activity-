@@ -35,6 +35,7 @@ ____________________________________________
 
 ____________________________________________
 **2. HOW TO USE**
+
 (a) Issue a Ticket
  - Firstly, enter the purpose of your request. Kindly choose between **Enrollment**, **Records**, or **Payment**.
  - After doing so, kindly select whether your service type is **regular** or **priority**. If you do not enter anything here, the **default service** will become **regular**.
@@ -45,10 +46,29 @@ ____________________________________________
    - The system will continue to ask you whether you want to create another ticket or not.
    - If the user declines, then the condition will break and return to the main menu.
    - If the user says Yes or yes, the system will ask the user to fulfill the questions asked from before when issuing a ticket.
+  
+  **TAKE NOTE, ALL RECENTLY ISSUED TICKETS WILL BE ISSUED AS WAITING**
+
 
 (b) Call the Next Ticket
+ - In this choice, the system checks whether all counters are busy or not.
+ - If there are vacant counters or both are free, the condition will call the next ticket, prioritizing 2 priority tickets before the regular ticket holders.
+ - When tickets are called, their ticket **"Status"** becomes **"In Service"** and their ticket dictionary is presented.
+ - Calling tickets are under a priority streak whereas the system will call a regular ticket after two consecutive priority calls when one is in waiting and one is completed. After that, it loops back to calling in two priority ticket holders again and so on. If there is no priority ticket during the loop, it will call the next ticket holder which can be regarded as regular ticket holders. 
 
 
+(c) Complete a Service
+ - When this selection is picked by the user, they may complete any ticket that is being served or was called to the counter. (ANY TICKET WITH THE STATUS "In Service")
+ - If tickets called out were either cancelled, non-existing, completed already, or in waiting, the ticket will not be completed and is disregarded by the system, calling it out that no ticket was found in the ones currently being served.
+
+
+(d) Cancel a Waiting Ticket
+ - This choice cancels a ticket when the ticket number is entered.
+ - If an invalid or unknown ticket that is not in the waiting list will not be cancelled and be deemed not found.
+
+
+(e) Show Waiting Tickets
+ - In this choice, the Waiting Ticket Iterator was implemented
 ____________________________________________
 
 
