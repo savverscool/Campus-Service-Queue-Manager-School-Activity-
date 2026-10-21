@@ -13,23 +13,52 @@ This code is useful for real life situations such as a busy campus registrar hav
 ____________________________________________
 
 **Contents**
-1. Import
-2. Data Structure of the counters, functions, tickets, etc.
-3. Class for the Waiting Ticket Iterator
-4. Functions used and created for implementation of the ticket system
-5. Menu of the Queue Manager 
-6. Inputs and Conditions of each statements
+1. Setup
+2. How to Use
+3. Import
+4. Data Structure of the counters, functions, tickets, etc.
+5. Class for the Waiting Ticket Iterator
+6. Functions used and created for implementation of the ticket system
+7. Menu of the Queue Manager 
+8. Inputs and Conditions of each statements
+
+_(In the end of the file is where the Terminal Transcript is found)_
+
+____________________________________________
+
+**1. SETUP**
+
+1. Install an IDE if you do not have one installed. Software preferably used would be Virtual Studio Code for beginners or PyCharm which is built for Python. PyCharm also comes packed with smart refactoring, database tools, and virtual environments ready to go.
+2. If you are using VS Code as your IDE, kindly install the recent Python version in the Extension
+3. Open a terminal in the folder containing the program. 
+4. Run the program
+
+____________________________________________
+**2. HOW TO USE**
+(a) Issue a Ticket
+ - Firstly, enter the purpose of your request. Kindly choose between **Enrollment**, **Records**, or **Payment**.
+ - After doing so, kindly select whether your service type is **regular** or **priority**. If you do not enter anything here, the **default service** will become **regular**.
+ - After entering, the ticket will successfully be issued whereas the system will give you a unique ticket number.
+ - The ticket number given increments in order according to the number of person that requests a service.
+   
+   **IF THE USER WANTS TO CREATE MORE TICKETS**
+   - The system will continue to ask you whether you want to create another ticket or not.
+   - If the user declines, then the condition will break and return to the main menu.
+   - If the user says Yes or yes, the system will ask the user to fulfill the questions asked from before when issuing a ticket.
+
+(b) Call the Next Ticket
+
 
 ____________________________________________
 
 
-**1. IMPORT**
+**2. IMPORT**
 
  The ```import sys``` imports the built-in sys module whereas in this program, the sys module was executed for exiting the program by entering choice "8". In the code, exiting the program was done within a function that implements this module by calling out the ```leave_queue(menu)``` function choice "8" that exits the program using ```sys.exit``` which can also be customized by printing a text before exiting.
 
 ____________________________________________
 
-**2. DATA STRUCTURE OF THE COUNTERS, FUNCTIONS, TICKETS, ETC.**
+**3. DATA STRUCTURE OF THE COUNTERS, FUNCTIONS, TICKETS, ETC.**
 
  This section explain the data structure outside the functions which resides at the beginning after the import statement. 
 
@@ -53,8 +82,6 @@ completed_tickets = []
 #Cancelled tickets
 cancelled_tickets = []
 ```
-
-
 ____________________________________________
  
 
