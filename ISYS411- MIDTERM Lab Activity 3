@@ -185,15 +185,18 @@ while True:
             print(f"\nTicket issued successfully! Your ticket number is: {ticket_number}")
 
         while True:
-            more = input("\nWould you want to create another ticket? ")
-            if more.lower() not in ("yes", "y"):
-                break
+                more = input("\nWould you want to create another ticket? ")
+                if more.lower() in ("no", "n"):
+                    break
+                elif more.lower() in ("yes", "y"):
+                    purpose = input("\nEnter the purpose of your service request (Enrollment, Records, or Payment): ")
+                    service_type = input("\nEnter the type of service (regular or priority): ") or "regular"
+                    ticket_number = issue_ticket(purpose, service_type)
+                    if ticket_number is not None:
+                        print(f"\nTicket issued successfully! Your ticket number is: {ticket_number}")
+                else:
+                    print("Please enter yes or no.")
 
-            purpose = input("\nEnter the purpose of your service request (Enrollment, Records, or Payment): ")
-            service_type = input("\nEnter the type of service (regular or priority): ") or "regular"
-            ticket_number = issue_ticket(purpose, service_type)
-            if ticket_number is not None:
-                print(f"\nTicket issued successfully! Your ticket number is: {ticket_number}")
             
 
     #2 Call the next ticket
@@ -244,7 +247,7 @@ while True:
     elif menu == "5":
         waiting_iterator = WaitingTicketIterator(waiting_tickets)
         for position, ticket in enumerate(waiting_iterator, start=1):
-            print(f"{position}. {ticket['Number']} - {ticket['Purpose']}")
+            print(f"{position}. {ticket['Number']}: {ticket['Purpose']} - {ticket['Status']}")
 
 
     elif menu == "6":
