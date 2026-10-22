@@ -46,8 +46,9 @@ ____________________________________________
    - The system will continue to ask you whether you want to create another ticket or not.
    - If the user declines, then the condition will break and return to the main menu.
    - If the user says Yes or yes, the system will ask the user to fulfill the questions asked from before when issuing a ticket.
+   - However, if the user enters random characters or digits instead of answering correctly, the system will ask again to enter yes or no.
   
-  **TAKE NOTE, ALL RECENTLY ISSUED TICKETS WILL BE ISSUED AS WAITING**
+  **TAKE NOTE, ALL RECENTLY ISSUED TICKETS' STATUS WILL BE ISSUED AS WAITING**
 
 
 (b) Call the Next Ticket
@@ -68,7 +69,26 @@ ____________________________________________
 
 
 (e) Show Waiting Tickets
- - In this choice, the Waiting Ticket Iterator was implemented
+ - In this choice, the Waiting Ticket Iterator was implemented through the WaitingTicketIterator function.
+ - This determines the tickets currently waiting to be served.
+ - This choice reveals the ticket number, its purpose and its status.
+ - If the ticket is called or cancelled, the ticket won't appear among the waiting tickets anymore.
+ 
+
+(f) Show counter status and completed history
+ - In this choice, when you enter 6 in the menu, the system will check and reveal whether there are vacant counters that are ready to call in a next ticket, or all counters are busy
+ - When there is a counter currently serving a ticket, the counter status will reveal what ticket number they are serving.
+ - If the manager or counter completes a ticket, the completed tickets will be revealed here when desired.
+
+
+(g) Show a Summary Report
+ - Choice number 7 will reveal a complete summary report of the current tickets in waiting, in service, those who were served or completed, tickets that were cancelled, and how many counters are free.
+ - This is the overall data without giving out extensive data for each ticket, simply put, this reveals the count for how many has been in that category.
+
+
+(h) Exit
+ - Lastly, entering 8 in the menu will exit the overall program through the import sys module, using the ```sys.exit``` statement.
+ - With this statement, the program will tell the user that they will be exiting the program and greets them with Goodbye.
 ____________________________________________
 
 
