@@ -12,17 +12,11 @@ This code is useful for real life situations such as a busy campus registrar hav
 
 ____________________________________________
 
+
 **Contents**
 1. Setup
 2. How to Use
-3. Import
-4. Data Structure of the counters, functions, tickets, etc.
-5. Class for the Waiting Ticket Iterator
-6. Functions used and created for implementation of the ticket system
-7. Menu of the Queue Manager 
-8. Inputs and Conditions of each statements
-
-_(In the end of the file is where the Terminal Transcript is found)_
+3. Full Terminal Transcript
 
 ____________________________________________
 
@@ -89,51 +83,16 @@ ____________________________________________
 **(h) Exit**
  - Lastly, entering 8 in the menu will exit the overall program through the import sys module, using the ```sys.exit``` statement.
  - With this statement, the program will tell the user that they will be exiting the program and greets them with Goodbye.
+
+
 ____________________________________________
 
 
-**2. IMPORT**
-
- The ```import sys``` imports the built-in sys module whereas in this program, the sys module was executed for exiting the program by entering choice "8". In the code, exiting the program was done within a function that implements this module by calling out the ```leave_queue(menu)``` function choice "8" that exits the program using ```sys.exit``` which can also be customized by printing a text before exiting.
 
 ____________________________________________
 
-**3. DATA STRUCTURE OF THE COUNTERS, FUNCTIONS, TICKETS, ETC.**
 
- This section explain the data structure outside the functions which resides at the beginning after the import statement. 
-
-These consists of specific variables, default statements, range for the counter, and lists which can add ticket dictionaries when the program is executed.
-
-```
-#Next_number variable outside the issue_ticket function to define and vaildate, allowing function to update the variable.
-next_number = 1
-
-#for next_ticket to 
-waiting_tickets = []
-priority_streak = 0
-current_ticket = None
-
-#Two Counters for the report and serving tickets
-counters = {counter_number: None for counter_number in range(1, 3)}
-
-#Completed Ticket
-completed_tickets = []
-
-#Cancelled tickets
-cancelled_tickets = []
-```
-____________________________________________
- 
-
-
-
-
-
-
-
-
-
-**FULL TERMINAL TRANSCRIPT IN WHICH FULFILLS THE SCENARIO DEMONSTRATION**
+**3. FULL TERMINAL TRANSCRIPT IN WHICH FULFILLS THE SCENARIO DEMONSTRATION**
 ```
 PS C:\Users\Name of User\Documents\Name of Folder> & "C:\Users\Name of User\AppData\Local\Programs\Python\Python313\python.exe" "c:/Users/Name of User/Documents/Name of Folder/ISYS411- MIDTERM Lab Activity 3"
 
