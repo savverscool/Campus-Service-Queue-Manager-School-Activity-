@@ -36,57 +36,57 @@ ____________________________________________
 ____________________________________________
 **2. HOW TO USE**
 
-(a) Issue a Ticket
+**(a) Issue a Ticket**
  - Firstly, enter the purpose of your request. Kindly choose between **Enrollment**, **Records**, or **Payment**.
  - After doing so, kindly select whether your service type is **regular** or **priority**. If you do not enter anything here, the **default service** will become **regular**.
  - After entering, the ticket will successfully be issued whereas the system will give you a unique ticket number.
  - The ticket number given increments in order according to the number of person that requests a service.
    
-   **IF THE USER WANTS TO CREATE MORE TICKETS**
+   *IF THE USER WANTS TO CREATE MORE TICKETS*
    - The system will continue to ask you whether you want to create another ticket or not.
    - If the user declines, then the condition will break and return to the main menu.
    - If the user says Yes or yes, the system will ask the user to fulfill the questions asked from before when issuing a ticket.
    - However, if the user enters random characters or digits instead of answering correctly, the system will ask again to enter yes or no.
   
-  **TAKE NOTE, ALL RECENTLY ISSUED TICKETS' STATUS WILL BE ISSUED AS WAITING**
+  *TAKE NOTE, ALL RECENTLY ISSUED TICKETS' STATUS WILL BE ISSUED AS WAITING*
 
 
-(b) Call the Next Ticket
+**(b) Call the Next Ticket**
  - In this choice, the system checks whether all counters are busy or not.
  - If there are vacant counters or both are free, the condition will call the next ticket, prioritizing 2 priority tickets before the regular ticket holders.
  - When tickets are called, their ticket **"Status"** becomes **"In Service"** and their ticket dictionary is presented.
  - Calling tickets are under a priority streak whereas the system will call a regular ticket after two consecutive priority calls when one is in waiting and one is completed. After that, it loops back to calling in two priority ticket holders again and so on. If there is no priority ticket during the loop, it will call the next ticket holder which can be regarded as regular ticket holders. 
 
 
-(c) Complete a Service
+**(c) Complete a Service**
  - When this selection is picked by the user, they may complete any ticket that is being served or was called to the counter. (ANY TICKET WITH THE STATUS "In Service")
  - If tickets called out were either cancelled, non-existing, completed already, or in waiting, the ticket will not be completed and is disregarded by the system, calling it out that no ticket was found in the ones currently being served.
 
 
-(d) Cancel a Waiting Ticket
+**(d) Cancel a Waiting Ticket**
  - This choice cancels a ticket when the ticket number is entered.
  - If an invalid or unknown ticket that is not in the waiting list will not be cancelled and be deemed not found.
 
 
-(e) Show Waiting Tickets
+**(e) Show Waiting Tickets**
  - In this choice, the Waiting Ticket Iterator was implemented through the WaitingTicketIterator function.
  - This determines the tickets currently waiting to be served.
  - This choice reveals the ticket number, its purpose and its status.
  - If the ticket is called or cancelled, the ticket won't appear among the waiting tickets anymore.
  
 
-(f) Show counter status and completed history
+**(f) Show counter status and completed history**
  - In this choice, when you enter 6 in the menu, the system will check and reveal whether there are vacant counters that are ready to call in a next ticket, or all counters are busy
  - When there is a counter currently serving a ticket, the counter status will reveal what ticket number they are serving.
  - If the manager or counter completes a ticket, the completed tickets will be revealed here when desired.
 
 
-(g) Show a Summary Report
+**(g) Show a Summary Report**
  - Choice number 7 will reveal a complete summary report of the current tickets in waiting, in service, those who were served or completed, tickets that were cancelled, and how many counters are free.
  - This is the overall data without giving out extensive data for each ticket, simply put, this reveals the count for how many has been in that category.
 
 
-(h) Exit
+**(h) Exit**
  - Lastly, entering 8 in the menu will exit the overall program through the import sys module, using the ```sys.exit``` statement.
  - With this statement, the program will tell the user that they will be exiting the program and greets them with Goodbye.
 ____________________________________________
