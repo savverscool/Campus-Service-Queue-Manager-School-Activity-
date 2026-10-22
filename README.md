@@ -1,5 +1,5 @@
 # Campus-Service-Queue-Manager-School-Activity-
-Language used is python
+_Language used is python_
 
 
 **Campus Service Queue Manager**
@@ -14,11 +14,12 @@ ____________________________________________
 
 
 **Contents**
-1. Setup
-2. How to Use
-3. Full Terminal Transcript
+1. SETUP
+2. HOW TO USE
+3. FULL TERMINAL TRANSCRIPT
 
 ____________________________________________
+
 
 **1. SETUP**
 
@@ -28,6 +29,8 @@ ____________________________________________
 4. Run the program
 
 ____________________________________________
+
+
 **2. HOW TO USE**
 
 **(a) Issue a Ticket**
